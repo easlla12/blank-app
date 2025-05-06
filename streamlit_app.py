@@ -5,7 +5,7 @@ import numpy as np
 
 # Sidebar panel
 st.sidebar.title("Breast Cancer Predictions")
-st.sidebar.write('''This application has been designed to give you an indication of whether you are likely to have a loan request accepted or rejected. 
+st.sidebar.write('This application has been designed to give you an indication of whether you are likely to have a loan request accepted or rejected. 
 This result is indicative, and the actual outcome will depend on your own personal 
 circumstances and lender checks, as well as the amount borrowed and the terms of the loan.\n
 
