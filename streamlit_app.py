@@ -15,14 +15,15 @@ categorical_features = ['Race', 'Marital Status', 'T Stage', 'N Stage', '6th Sta
 numerical_features = ['Age', 'Tumor Size', 'Regional Node Examined', 'Reginol Node Positive']
 st.subheader('Please enter your information below:')
 
-Race = st.race("Race: ", ['Other','White','Black'])
-Tstage = st.t_stage("T Stage: ", ['T2', 'T1', 'T3', 'T4'])
-Nstage = st.n_tage("N Stage: ", ['N3', 'N2', 'N1'])
+# User inputs
+Race = st.selectbox("Race: ", ['Other','White','Black'])
+Tstage = st.selectbox("T Stage: ", ['T2', 'T1', 'T3', 'T4'])
+Nstage = st.selectbox("N Stage: ", ['N3', 'N2', 'N1'])
 Sixstage = st.stage("6 Stage: ", ['IIIC', 'IIIA', 'IIB', 'IIA', 'I'])
-Grade = st.grade ("Grade:",['Moderately differentiated', 'Poorly differentiated', 'Well differentiated'])
-Astage= st.astage("A Stage: ", ['Regional', 'Distant', 'Localized'])
-EstrogenStatus = st.estrogen_status("Estrogen Status: ", ['Positive', 'Negative'])
-ProgesteroneStatus = st.progesterone_status("Interest rate: ", ['Positive', 'Negative'])
+Grade = st.selectbox ("Grade:",['Moderately differentiated', 'Poorly differentiated', 'Well differentiated'])
+Astage= st.selectbox("A Stage: ", ['Regional', 'Distant', 'Localized'])
+EstrogenStatus = st.selectbox("Estrogen Status: ", ['Positive', 'Negative'])
+ProgesteroneStatus = st.selectbox("Interest rate: ", ['Positive', 'Negative'])
 
 
   
