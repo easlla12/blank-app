@@ -3,7 +3,7 @@ import pandas as pd
 import pickle
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
-pip install scikit-learn
+!pip install scikit-learn
 
 # --- Define the order and names of your features EXACTLY as your model expects them ---
 survival_features = [
