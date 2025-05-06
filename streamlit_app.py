@@ -28,8 +28,7 @@ Grade = st.selectbox ("Grade:",['Moderately differentiated', 'Poorly differentia
 Astage= st.selectbox("A Stage: ", ['Regional', 'Distant', 'Localized'])
 EstrogenStatus = st.selectbox("Estrogen Status: ", ['Positive', 'Negative'])
 ProgesteroneStatus = st.selectbox("Interest rate: ", ['Positive', 'Negative'])
-
-
+)
     patient_data = {}
     for feature in survival_features:
         if feature in categorical_features:
