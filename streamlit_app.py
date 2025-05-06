@@ -29,13 +29,6 @@ Astage= st.selectbox("A Stage: ", ['Regional', 'Distant', 'Localized'])
 EstrogenStatus = st.selectbox("Estrogen Status: ", ['Positive', 'Negative'])
 ProgesteroneStatus = st.selectbox("Interest rate: ", ['Positive', 'Negative'])
 
-    patient_data = {}
-    for feature in survival_features:
-        if feature in categorical_features:
-            # --- Use the fitted classes from the LabelEncoder for selectbox options ---
-            patient_data[feature] = st.selectbox(f"{feature.capitalize()}", list(label_encoders[feature].classes_))
-        else:
-            patient_data[feature] = st.number_input(f"{feature.capitalize()}")
 
     if st.button("Predict Survival"):
         processed_input = preprocess_data(patient_data)
