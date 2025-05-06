@@ -1,67 +1,54 @@
-
 import streamlit as st
+import pandas as pd
+import pickle
+import numpy as np
 
-# Streamlit App Layout
-st.set_page_config(page_title="SEER Breast Cancer Predictor", layout="centered")
-st.title("🩺 SEER Breast Cancer Outcome Predictor")
-st.markdown("This tool helps clinicians assess breast cancer outcomes based on SEER dataset features.")
+# Load the trained survival prediction model
+try:
+    survival_model = pickle.load(open('breast_cancer_survival_model.pkl', 'rb'))
+except FileNotFoundError:
+    st.error("Error: Trained survival model file 'breast_cancer_survival_model.pkl' not found. Please ensure the file is in the same directory.")
+    st.stop()
 
-# Sidebar Inputs
-st.sidebar.header("Patient Clinical Information")
+# Assuming your model was trained on these features. Adjust as needed.
+survival_features = [
+    'mean radius', 'mean texture', 'mean perimeter', 'mean area',
+    'mean smoothness', 'mean compactness', 'mean concavity',
+    'mean concave points', 'mean symmetry', 'mean fractal dimension',
+    'radius error', 'texture error', 'perimeter error', 'area error',
+    'smoothness error', 'compactness error', 'concavity error',
+    'concave points error', 'symmetry error', 'fractal dimension error',
+    'worst radius', 'worst texture', 'worst perimeter', 'worst area',
+    'worst smoothness', 'worst compactness', 'worst concavity',
+    'worst concave points', 'worst symmetry', 'worst fractal dimension'
+]
 
-# Input fields - adjust according to your trained model
-age = st.sidebar.number_input("Age at Diagnosis", 20, 100, 50)
-tumor_size = st.sidebar.number_input("Tumor Size (mm)", 0, 200, 25)
-tumor_grade = st.sidebar.selectbox("Tumor Grade", ['Low', 'Intermediate', 'High'])
-race = st.sidebar.selectbox("Race", ['White', 'Black', 'Asian or Pacific Islander', 'Other'])
-histology = st.sidebar.selectbox("Histology", ['Infiltrating Ductal Carcinoma', 'Lobular Carcinoma', 'Other'])
-surgery = st.sidebar.selectbox("Surgery Type", ['None', 'Lumpectomy', 'Mastectomy'])
+def predict_survival(model, data):
+    """Makes a survival prediction using the loaded model."""
+    input_df = pd.DataFrame([data], columns=survival_features)
+    prediction_probability = model.predict_proba(input_df)[:, 1][0]  # Assuming class 1 represents 'die'
+    prediction_class = model.predict(input_df)[0]
+    return prediction_class, prediction_probability
 
-# Collect inputs into a DataFrame
-input_df = pd.DataFrame({
-    'Age': [age],
-    'TumorSize': [tumor_size],
-    'TumorGrade': [tumor_grade],
-    'Race': [race],
-    'Histology': [histology],
-    'Surgery': [surgery]
-})
+def main():
+    st.title("Breast Cancer Survival Prediction")
+    st.write("Please enter the patient's features to predict the survival outcome.")
 
-st.subheader("Prediction Results")
-if st.button("Predict"):
-    # Make prediction
-    prediction = predict_model(model, data=input_df)
-    predicted_class = prediction['prediction_label'][0]
-    probability = prediction['prediction_score'][0]
+    patient_data = {}
+    for feature in survival_features:
+        patient_data[feature] = st.number_input(f"{feature.capitalize()}", format="%.3f")
 
-    # Display result
-    st.success(f"Predicted Outcome: **{predicted_class}**")
-    st.info(f"Model Confidence: **{probability:.2f}**")
+    if st.button("Predict Survival"):
+        input_values = list(patient_data.values())
 
-    # Show input summary
-    with st.expander("Patient Summary"):
-        st.dataframe(input_df)
+        # Make the prediction
+        survival_prediction, probability = predict_survival(survival_model, input_values)
 
-    # Show feature importance using SHAP
-    st.subheader("Feature Contribution (SHAP)")
-    try:
-        # Get preprocessing pipeline and model
-        prep_pipe = get_config('prep_pipe')
-        model_object = get_config('trained_model')
+        st.subheader("Survival Prediction:")
+        if survival_prediction == 1:
+            st.error(f"The model predicts the patient is **less likely to survive** with a probability of {probability:.2f}.")
+        else:
+            st.success(f"The model predicts the patient is **likely to survive** with a probability of {1 - probability:.2f}.")
 
-        # Apply pipeline transform
-        transformed_input = prep_pipe.transform(input_df)
-
-        # Use SHAP to explain the model
-        explainer = shap.Explainer(model_object)
-        shap_values = explainer(transformed_input)
-
-        # Plot SHAP force plot or summary bar
-        fig, ax = plt.subplots()
-        shap.plots.bar(shap_values, show=False)
-        st.pyplot(fig)
-
-    except Exception as e:
-        st.warning("Feature explanation unavailable.")
-        st.text(f"Details: {e}")
-
+if __name__ == '__main__':
+    main()
