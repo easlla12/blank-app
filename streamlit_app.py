@@ -4,6 +4,10 @@ import pickle
 import numpy as np
 
 
+def main():
+    st.title("Breast Cancer Survival Prediction")
+    st.write("Please enter the patient's features to predict the survival outcome.")
+    
 # --- Define the order and names of your features EXACTLY as your model expects them ---
 survival_features = [
     'Age', 'Race', 'Marital Status', '7th Stage', '8th Stage', '6th Stage', 'Grade', 'A Stage',
@@ -25,40 +29,6 @@ Astage= st.selectbox("A Stage: ", ['Regional', 'Distant', 'Localized'])
 EstrogenStatus = st.selectbox("Estrogen Status: ", ['Positive', 'Negative'])
 ProgesteroneStatus = st.selectbox("Interest rate: ", ['Positive', 'Negative'])
 
-
-  
-# --- Initialize StandardScaler for numerical features if your model used scaling ---
-scaler = None
-# if preprocessor is None: # Only initialize if a preprocessor wasn't loaded
-#     scaler = StandardScaler()
-#     # --- You would typically fit the scaler on your training data ---
-#     # --- For prediction, you would only transform the new data ---
-
-def preprocess_data(data):
-    processed_data = {}
-    for feature, value in data.items():
-        if feature in categorical_features:
-            processed_data[feature] = label_encoders[feature].transform([value])[0]
-        elif feature in numerical_features:
-            processed_data[feature] = value
-    return list(processed_data.values())
-
-def predict_survival(model, processed_data):
-    """Makes a survival prediction using the loaded model."""
-    input_array = np.array(processed_data).reshape(1, -1)
-    # --- If you used scaling, apply it here ---
-    # if scaler:
-    #     input_scaled = scaler.transform(input_array)
-    #     prediction_probability = model.predict_proba(input_scaled)[:, 1][0]
-    #     prediction_class = model.predict(input_scaled)[0]
-    # else:
-    prediction_probability = model.predict_proba(input_array)[:, 1][0] # Assuming class 1 represents 'Dead'
-    prediction_class = model.predict(input_array)[0]
-    return prediction_class, prediction_probability
-
-def main():
-    st.title("Breast Cancer Survival Prediction")
-    st.write("Please enter the patient's features to predict the survival outcome.")
 
     patient_data = {}
     for feature in survival_features:
