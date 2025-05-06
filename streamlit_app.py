@@ -1,7 +1,7 @@
 import streamlit as st 
 import pandas as pd
 import numpy as np
-from prediction import predict
+
 
 # Sidebar panel
 st.sidebar.title("About")
