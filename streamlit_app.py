@@ -1,6 +1,9 @@
-#Main page
 import streamlit as st 
+import pandas as pd
+import numpy as np
+from prediction import predict
 
+# Sidebar panel
 st.sidebar.title("About")
 st.sidebar.write('''This application has been designed to give you an indication of whether you are likely to have a loan request accepted or rejected. 
 This result is indicative, and the actual outcome will depend on your own personal 
@@ -13,28 +16,49 @@ st.sidebar.title("How to use:")
 st.sidebar.write('''1. **Enter/select** the parameters that best describe your situation.''')
 st.sidebar.write('''2. Press the **'Predict'** button and wait for the result.''') 
 
-st.title("More information")
+#Main page
+col1, col2 = st.columns(2)
+with col1:
+   st.image("logo.png", width=300)
+with col2:
+   st.title("Loan Approval Prediction")
+   
+st.subheader('Please enter your information below:')
 
-st.header("How does the loan prediction work?")
+# User inputs
+age = st.number_input("Age: ", 18,100)
+income = st.number_input("Income: ", 0,100000000)
+ownership = st.selectbox("House ownership: ", ['Rent', "Own", "Mortgage", 'Other'])
+employement = st.number_input("Employement length (in years): ", 0,200)
+loan_intent = st.selectbox("Loan purpose: ", ["Personal", "Education", "Medical", "Home Improvement", "Debt Consolidation", "Venture"])
+grade = st.selectbox("Loan grade: ", ["A", "B", "C", "D", "E", "F"])
+amount = st.number_input("Loan amount: ", 0,1000000)
+interest = st.number_input("Interest rate: ", 0.0,100.0)
+percent = (amount / income) if income != 0 else 0.0
+default = st.selectbox("Previously defaulted? ", ["Yes", "No"])
+credit_hist = st.number_input("Credit history length (in years): ", 0,100)
 
-st.write('''The **Personal Loan Approval Prediction tool** can be used to help work out if 
-         you are likely to have a loan application accepted or rejected *without* affecting your credit score. 
-         It's outcome is based on a series of different variables. These include:
+# Create dataframe with user input values
+user_input = pd.DataFrame({
+    'person_age': [age],
+    'person_income': [income],
+    'person_home_ownership': [ownership],
+    'person_emp_length': [employement],
+    'loan_intent': [loan_intent],
+    'loan_grade': [grade],
+    'loan_amnt': [amount],
+    'loan_int_rate': [interest],
+    'loan_percent_income': [percent],
+    'cb_person_default_on_file': [default],
+    'cb_person_cred_hist_length': [credit_hist]
+})
 
-- Amount borrowed
-- Home ownership
-- Income
-- Interest rate
+# Display user input into a table
+#st.table(user_input)
 
-If any variables are changed, a new prediction will be made based on the updated information.
-
-The Personal Loan Approval Predictor gives an approximate answer based on historical data. 
-         It cannot provide a guarantee on how your application will be received.''')
-
-st.header("Resources")
-st.write("- [How lenders decide whether to give you credit](https://www.citizensadvice.org.uk/debt-and-money/borrowing-money/how-lenders-decide-whether-to-give-you-credit/)")
-st.write("- [Loan eligibility checker](https://www.comparethemarket.com/loans/eligibility-checker)")
-st.write("- [Loan Requirements](https://www.forbes.com/advisor/personal-loans/personal-loan-requirements/)")
-
-st.header("Source Code")
-st.write('- [Github repository](https://github.com/GeraldL19/Final-Year-Project-2024.git)')
+if st.button("Predict"):
+    result = predict(user_input)
+    if result[0] == 0:
+        st.success("Accepted")
+    else:
+        st.error("Rejected")
