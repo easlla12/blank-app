@@ -4,11 +4,7 @@ import pickle
 import numpy as np
 
 # Load the trained survival prediction model
-try:
-    survival_model = pickle.load(open('breast_cancer_survival_model.pkl', 'rb'))
-except FileNotFoundError:
-    st.error("Error: Trained survival model file 'breast_cancer_survival_model.pkl' not found. Please ensure the file is in the same directory.")
-    st.stop()
+
 
 # Assuming your model was trained on these features. Adjust as needed.
 survival_features = [
