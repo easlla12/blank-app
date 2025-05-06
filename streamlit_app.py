@@ -3,16 +3,11 @@ import pandas as pd
 import pickle
 import numpy as np
 
-def main():
-    st.title("Breast Cancer Prediction App")
-    st.subheader("Welcome!")
-    st.write("This application uses a machine learning model to predict whether a breast tumor is malignant or benign based on various features.")
-    st.write("To get a prediction, please navigate to the 'Prediction' page using the sidebar.")
-    st.sidebar.success("Navigation")
-    st.sidebar.info("Select 'Prediction' to enter tumor features.")
-    st.sidebar.markdown("---")
-    st.sidebar.markdown("Developed using Streamlit and a trained machine learning model.")
-    st.sidebar.markdown("Feel free to explore!")
+# Sidebar panel
+st.sidebar.title("Breast Cancer Predictions")
+st.sidebar.write('''This application has been designed to give you an indication of whether you are likely to have a loan request accepted or rejected. 
+This result is indicative, and the actual outcome will depend on your own personal 
+circumstances and lender checks, as well as the amount borrowed and the terms of the loan.\n
 
 def main():
     st.title("Breast Cancer Survival Prediction")
