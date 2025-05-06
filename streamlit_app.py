@@ -20,7 +20,7 @@ Tstage = st.t_stage("T Stage: ", ['T2', 'T1', 'T3', 'T4'])
 Nstage = st.n_tage("N Stage: ", ['N3', 'N2', 'N1'])
 Sixstage = st.stage("6 Stage: ", ['IIIC', 'IIIA', 'IIB', 'IIA', 'I'])
 Grade = st.grade ("Grade:",['Moderately differentiated', 'Poorly differentiated', 'Well differentiated'])
-A Stage= st.astage("A Stage: ", ['Regional', 'Distant', 'Localized'])
+Astage= st.astage("A Stage: ", ['Regional', 'Distant', 'Localized'])
 Estrogen Status = st.estrogen_status("Estrogen Status: ", ['Positive', 'Negative'])
 Progesterone Status = st.progesterone_status("Interest rate: ", ['Positive', 'Negative'])
 
