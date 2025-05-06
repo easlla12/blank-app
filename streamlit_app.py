@@ -1,10 +1,4 @@
 import streamlit as st
-st.set_page_config(page_title="Breast Cancer Prediction", layout="centered")
-st.title("Breast Cancer Survival Prediction")
-st.markdown("""
-This tool assists clinicians in predicting **patient outcomes** using SEER data and machine learning.  
-Please enter the patient data below.
-""")
 
 # Sidebar for inputs
 st.sidebar.header("Patient Information")
