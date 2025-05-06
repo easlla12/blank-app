@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import pickle
 import numpy as np
+from sklearn.preprocessing import LabelEncoder
 
 # --- Define the order and names of your features EXACTLY as your model expects them ---
 survival_features = [
@@ -17,8 +18,6 @@ numerical_features = ['Age', 'Tumor Size', 'Regional Node Examined', 'Reginol No
 label_encoders = {}
 for feature in categorical_features:
     label_encoders[feature] = LabelEncoder()
-    # --- Fit LabelEncoder with the known categories from your training data ---
-    # --- Replace the example categories below with the actual unique values you used during training ---
     if feature == 'Race':
         label_encoders[feature].fit(['Other', 'White', 'Black'])
     elif feature == 'Marital Status':
