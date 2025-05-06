@@ -1,8 +1,6 @@
-pip install pycaret
 
 import streamlit as st
 import pandas as pd
-from pycaret.classification import load_model, predict_model, get_config
 import shap
 import matplotlib.pyplot as plt
 
