@@ -3,16 +3,6 @@ import pandas as pd
 import pickle
 import numpy as np
 
-import joblib  # For loading preprocessor if saved separately
-
-
-# --- If you saved your preprocessor (e.g., LabelEncoder, StandardScaler) separately, load it here ---
-# try:
-#     preprocessor = joblib.load('preprocessor.joblib')
-# except FileNotFoundError:
-#     preprocessor = None
-#     st.warning("Warning: Preprocessor file not found. Ensure your model was trained without explicit preprocessing within the prediction step, or load the preprocessor.")
-
 # --- Define the order and names of your features EXACTLY as your model expects them ---
 survival_features = [
     'Age', 'Race', 'Marital Status', 'T Stage', 'N Stage', '6th Stage', 'Grade', 'A Stage',
