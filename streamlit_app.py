@@ -8,7 +8,8 @@ st.sidebar.title("Breast Cancer Predictions")
 st.sidebar.write("This application has been designed to give you an indication of whether you are likely to have a loan request accepted or rejected. 
 This result is indicative, and the actual outcome will depend on your own personal 
 circumstances and lender checks, as well as the amount borrowed and the terms of the loan.\n
-
+This tool is for information purposes only and should not be taken as financial advice.
+''')
 def main():
     st.title("Breast Cancer Survival Prediction")
     st.write("Please enter the patient's features to predict the survival outcome.")
