@@ -1,8 +1,5 @@
 
 import streamlit as st
-import pandas as pd
-
-import matplotlib.pyplot as plt
 
 # Streamlit App Layout
 st.set_page_config(page_title="SEER Breast Cancer Predictor", layout="centered")
