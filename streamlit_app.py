@@ -1,61 +1,73 @@
-import streamlit as st 
+import streamlit as st
 import pandas as pd
-import numpy as np
+from pycaret.classification import load_model, predict_model, get_config
+import shap
+import matplotlib.pyplot as plt
 
+# Load your trained PyCaret model
+model = load_model('seer_model')  # Use your actual model name here
 
-# Sidebar panel
-st.sidebar.title("About")
-st.sidebar.write('''This application has been designed to give you an indication of whether you are likely to have a loan request accepted or rejected. 
-This result is indicative, and the actual outcome will depend on your own personal 
-circumstances and lender checks, as well as the amount borrowed and the terms of the loan.\n
-                 
-This tool is for information purposes only and should not be taken as financial advice.
-''')
+# Streamlit App Layout
+st.set_page_config(page_title="SEER Breast Cancer Predictor", layout="centered")
+st.title("🩺 SEER Breast Cancer Outcome Predictor")
+st.markdown("This tool helps clinicians assess breast cancer outcomes based on SEER dataset features.")
 
-st.sidebar.title("How to use:")
-st.sidebar.write('''1. **Enter/select** the parameters that best describe your situation.''')
-st.sidebar.write('''2. Press the **'Predict'** button and wait for the result.''') 
+# Sidebar Inputs
+st.sidebar.header("Patient Clinical Information")
 
-#Main page
-c
-   st.title("Loan Approval Prediction")
-   
-st.subheader('Please enter your information below:')
+# Input fields - adjust according to your trained model
+age = st.sidebar.number_input("Age at Diagnosis", 20, 100, 50)
+tumor_size = st.sidebar.number_input("Tumor Size (mm)", 0, 200, 25)
+tumor_grade = st.sidebar.selectbox("Tumor Grade", ['Low', 'Intermediate', 'High'])
+race = st.sidebar.selectbox("Race", ['White', 'Black', 'Asian or Pacific Islander', 'Other'])
+histology = st.sidebar.selectbox("Histology", ['Infiltrating Ductal Carcinoma', 'Lobular Carcinoma', 'Other'])
+surgery = st.sidebar.selectbox("Surgery Type", ['None', 'Lumpectomy', 'Mastectomy'])
 
-# User inputs
-age = st.number_input("Age: ", 18,100)
-income = st.number_input("Income: ", 0,100000000)
-ownership = st.selectbox("House ownership: ", ['Rent', "Own", "Mortgage", 'Other'])
-employement = st.number_input("Employement length (in years): ", 0,200)
-loan_intent = st.selectbox("Loan purpose: ", ["Personal", "Education", "Medical", "Home Improvement", "Debt Consolidation", "Venture"])
-grade = st.selectbox("Loan grade: ", ["A", "B", "C", "D", "E", "F"])
-amount = st.number_input("Loan amount: ", 0,1000000)
-interest = st.number_input("Interest rate: ", 0.0,100.0)
-percent = (amount / income) if income != 0 else 0.0
-default = st.selectbox("Previously defaulted? ", ["Yes", "No"])
-credit_hist = st.number_input("Credit history length (in years): ", 0,100)
-
-# Create dataframe with user input values
-user_input = pd.DataFrame({
-    'person_age': [age],
-    'person_income': [income],
-    'person_home_ownership': [ownership],
-    'person_emp_length': [employement],
-    'loan_intent': [loan_intent],
-    'loan_grade': [grade],
-    'loan_amnt': [amount],
-    'loan_int_rate': [interest],
-    'loan_percent_income': [percent],
-    'cb_person_default_on_file': [default],
-    'cb_person_cred_hist_length': [credit_hist]
+# Collect inputs into a DataFrame
+input_df = pd.DataFrame({
+    'Age': [age],
+    'TumorSize': [tumor_size],
+    'TumorGrade': [tumor_grade],
+    'Race': [race],
+    'Histology': [histology],
+    'Surgery': [surgery]
 })
 
-# Display user input into a table
-#st.table(user_input)
-
+st.subheader("Prediction Results")
 if st.button("Predict"):
-    result = predict(user_input)
-    if result[0] == 0:
-        st.success("Accepted")
-    else:
-        st.error("Rejected")
+    # Make prediction
+    prediction = predict_model(model, data=input_df)
+    predicted_class = prediction['prediction_label'][0]
+    probability = prediction['prediction_score'][0]
+
+    # Display result
+    st.success(f"Predicted Outcome: **{predicted_class}**")
+    st.info(f"Model Confidence: **{probability:.2f}**")
+
+    # Show input summary
+    with st.expander("Patient Summary"):
+        st.dataframe(input_df)
+
+    # Show feature importance using SHAP
+    st.subheader("Feature Contribution (SHAP)")
+    try:
+        # Get preprocessing pipeline and model
+        prep_pipe = get_config('prep_pipe')
+        model_object = get_config('trained_model')
+
+        # Apply pipeline transform
+        transformed_input = prep_pipe.transform(input_df)
+
+        # Use SHAP to explain the model
+        explainer = shap.Explainer(model_object)
+        shap_values = explainer(transformed_input)
+
+        # Plot SHAP force plot or summary bar
+        fig, ax = plt.subplots()
+        shap.plots.bar(shap_values, show=False)
+        st.pyplot(fig)
+
+    except Exception as e:
+        st.warning("Feature explanation unavailable.")
+        st.text(f"Details: {e}")
+
