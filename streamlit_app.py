@@ -9,8 +9,9 @@ st.sidebar.write('''This application has been designed to predict weather a pati
 The actual diagnosis and treatment plan should always be determined by qualified healthcare professionals based on a comprehensive evaluation of your individual medical history and circumstances.
 ''')
 st.sidebar.title("How to use:")
-st.sidebar.write('''1. **Enter/select** the parameters that best describe your situation.''')
-    
+st.sidebar.write('''1. **Enter/select** the information best describe your situation.''')
+st.sidebar.write('''2. Press the **'Predict'** button and wait for the result.''') 
+
 # --- Define the order and names of your features EXACTLY as your model expects them ---
 survival_features = [
     'Age', 'Race', 'Marital Status', '7th Stage', '8th Stage', '6th Stage', 'Grade', 'A Stage',
