@@ -15,7 +15,7 @@ categorical_features = ['Race', 'Marital Status', 'T Stage', 'N Stage', '6th Sta
 numerical_features = ['Age', 'Tumor Size', 'Regional Node Examined', 'Reginol Node Positive']
 st.subheader('Please enter your information below:')
 
-Race = st.race("Race: ", ["Other","White","Black]")
+Race = st.race("Race: ", ["Other","White","Black"s])
 T Stage = st.t_stage("T Stage: ", ['T2', 'T1', 'T3', 'T4'])
 N Stage = st.n_tage("N Stage: ", ['N3', 'N2', 'N1'])
 6 Stage = st.6_stage("6 Stage: ", ['IIIC', 'IIIA', 'IIB', 'IIA', 'I'])
