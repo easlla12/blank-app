@@ -14,29 +14,17 @@ survival_features = [
 categorical_features = ['Race', 'Marital Status', 'T Stage', 'N Stage', '6th Stage', 'Grade', 'A Stage', 'Estrogen Status', 'Progesterone Status']
 numerical_features = ['Age', 'Tumor Size', 'Regional Node Examined', 'Reginol Node Positive']
 
-# --- Initialize LabelEncoders for categorical features ---
-label_encoders = {}
-for feature in categorical_features:
-    label_encoders[feature] = LabelEncoder()
-    if feature == 'Race':
-        label_encoders[feature].fit(['Other', 'White', 'Black'])
-    elif feature == 'Marital Status':
-        label_encoders[feature].fit(['Married(including common law)', 'Divorced', 'Single (never married)', 'Widowed'])
-    elif feature == 'T Stage':
-        label_encoders[feature].fit(['T2', 'T1', 'T3', 'T4'])
-    elif feature == 'N Stage':
-        label_encoders[feature].fit(['N3', 'N2', 'N1'])
-    elif feature == '6th Stage':
-        label_encoders[feature].fit(['IIIC', 'IIIA', 'IIB', 'IIA', 'I'])
-    elif feature == 'Grade':
-        label_encoders[feature].fit(['Moderately differentiated', 'Poorly differentiated', 'Well differentiated'])
-    elif feature == 'A Stage':
-        label_encoders[feature].fit(['Regional', 'Distant', 'Localized'])
-    elif feature == 'Estrogen Status':
-        label_encoders[feature].fit(['Positive', 'Negative'])
-    elif feature == 'Progesterone Status':
-        label_encoders[feature].fit(['Positive', 'Negative'])
+Race = st.race("Race: ", ["Other","White","Black")
+T Stage = st.t_stage("T Stage: ", ['T2', 'T1', 'T3', 'T4'])
+N Stage = st.n_tage("N Stage: ", ['N3', 'N2', 'N1'])
+6 Stage = st.6_stage("6 Stage: ", ['IIIC', 'IIIA', 'IIB', 'IIA', 'I'])
+Grade = st.grade ("Grade:",['Moderately differentiated', 'Poorly differentiated', 'Well differentiated'])
+A Stage= st.astage("A Stage: ", ['Regional', 'Distant', 'Localized'])
+Estrogen Status = st.estrogen_status("Estrogen Status: ", ['Positive', 'Negative'])
+Progesterone Status = st.progesterone_status("Interest rate: ", ['Positive', 'Negative'])
 
+
+  
 # --- Initialize StandardScaler for numerical features if your model used scaling ---
 scaler = None
 # if preprocessor is None: # Only initialize if a preprocessor wasn't loaded
