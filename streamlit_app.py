@@ -31,7 +31,7 @@ ProgesteroneStatus = st.selectbox("Interest Rate: ", ['Positive', 'Negative'])
 
 # Create dataframe with user input values
 user_input = pd.DataFrame({
-    'person_race': [race],
+    'person_race': [Race],
     'Tstage_level': [Tstage],
     'Nstage_level': [Nstage],
     'Sixstage_level': [Sixstage],
