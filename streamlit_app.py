@@ -27,8 +27,7 @@ Sixstage = st.selectbox("6 Stage: ", ['IIIC', 'IIIA', 'IIB', 'IIA', 'I'])
 Grade = st.selectbox ("Grade:",['Moderately differentiated', 'Poorly differentiated', 'Well differentiated'])
 Astage= st.selectbox("A Stage: ", ['Regional', 'Distant', 'Localized'])
 EstrogenStatus = st.selectbox("Estrogen Status: ", ['Positive', 'Negative'])
-ProgesteroneStatus = st.selectbox("Interest rate: ", ['Positive', 'Negative'])
-
+ProgesteroneStatus = st.selectbox("Interest Rate: ", ['Positive', 'Negative'])
 
     if st.button("Predict Survival"):
         processed_input = preprocess_data(patient_data)
