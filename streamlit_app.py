@@ -1,8 +1,7 @@
 import streamlit as st
 import pandas as pd
 import pickle
-import numpy as np 
-import LabelEncoder  # Import LabelEncoder
+import numpy as np
 import joblib
 
 # --- Define the order and names of your features EXACTLY as your model expects them ---
