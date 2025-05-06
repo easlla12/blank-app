@@ -8,15 +8,9 @@ import numpy as np
 
 # Assuming your model was trained on these features. Adjust as needed.
 survival_features = [
-    'mean radius', 'mean texture', 'mean perimeter', 'mean area',
-    'mean smoothness', 'mean compactness', 'mean concavity',
-    'mean concave points', 'mean symmetry', 'mean fractal dimension',
-    'radius error', 'texture error', 'perimeter error', 'area error',
-    'smoothness error', 'compactness error', 'concavity error',
-    'concave points error', 'symmetry error', 'fractal dimension error',
-    'worst radius', 'worst texture', 'worst perimeter', 'worst area',
-    'worst smoothness', 'worst compactness', 'worst concavity',
-    'worst concave points', 'worst symmetry', 'worst fractal dimension'
+      'Age', 'Race', 'Marital Status', '7th Stage', '8th Stage', '6th Stage', 'Grade', 'A Stage',
+    'Tumor Size', 'Estrogen Status', 'Progesterone Status', 'Regional Node Examined',
+    'Reginol Node Positive'
 ]
 
 def predict_survival(model, data):
