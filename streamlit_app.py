@@ -12,7 +12,6 @@ histology = st.sidebar.selectbox("Histology Type", ['Infiltrating Ductal Carcino
 surgery = st.sidebar.selectbox("Surgical Procedure", ['None', 'Lumpectomy', 'Mastectomy'])
 
 # Collect data into DataFrame
-
     'Age': [age],
     'TumorSize': [tumor_size],
     'TumorGrade': [tumor_grade],
