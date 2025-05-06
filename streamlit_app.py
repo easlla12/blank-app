@@ -29,7 +29,7 @@ Astage= st.selectbox("A Stage: ", ['Regional', 'Distant', 'Localized'])
 EstrogenStatus = st.selectbox("Estrogen Status: ", ['Positive', 'Negative'])
 ProgesteroneStatus = st.selectbox("Interest Rate: ", ['Positive', 'Negative'])
 
-    if st.button("Predict Survival"):
+    if st.button("Predict Survival")
         processed_input = preprocess_data(patient_data)
 
         # Make the prediction
