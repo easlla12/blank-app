@@ -8,7 +8,7 @@ import numpy as np
 survival_features = [
     'Age', 'Race', 'Marital Status', '7th Stage', '8th Stage', '6th Stage', 'Grade', 'A Stage',
     'Tumor Size', 'Estrogen Status', 'Progesterone Status', 'Regional Node Examined',
-    'Reginol Node Positive', ' 
+    'Reginol Node Positive'
 ]
 
 # --- If your categorical features need specific encoding (e.g., one-hot encoding),
