@@ -8,7 +8,7 @@ survival_features = [
     'Age', 'Race', 'Marital Status', '7th Stage', '8th Stage', '6th Stage', 'Grade', 'A Stage',
     'Tumor Size', 'Estrogen Status', 'Progesterone Status', 'Regional Node Examined',
     'Reginol Node Positive'
-
+]
 
 categorical_features = ['Race', 'Marital Status', 'T Stage', 'N Stage', '6th Stage', 'Grade', 'A Stage', 'Estrogen Status', 'Progesterone Status']
 numerical_features = ['Age', 'Tumor Size', 'Regional Node Examined', 'Reginol Node Positive']
