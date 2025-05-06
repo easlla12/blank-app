@@ -29,18 +29,25 @@ Astage= st.selectbox("A Stage: ", ['Regional', 'Distant', 'Localized'])
 EstrogenStatus = st.selectbox("Estrogen Status: ", ['Positive', 'Negative'])
 ProgesteroneStatus = st.selectbox("Interest Rate: ", ['Positive', 'Negative'])
 
-    if st.button("Predict Survival")
-        processed_input = preprocess_data(patient_data)
+# Create dataframe with user input values
+user_input = pd.DataFrame({
+    'person_race': [race],
+    'Tstage_level': [Tstage],
+    'Nstage_level': [Nstage],
+    'Sixstage_level': [Sixstage],
+    'Grade_level': [Grade],
+    'Astage_level': [Astage],
+    'EstrogenStatus_level': [EstrogenStatus],
+    'ProgesteroneStatus_level': [ProgesteroneStatus],
 
-        # Make the prediction
-        survival_prediction, probability = predict_survival(survival_model, processed_input)
+})
 
-        st.subheader("Survival Prediction:")
-        # --- Adjust these labels based on how your target variable 'Status' was encoded (e.g., 0 for Alive, 1 for Dead) ---
-        if survival_prediction == 1:
-            st.error(f"The model predicts the patient is **likely to die** with a probability of {probability:.2f}.")
-        else:
-            st.success(f"The model predicts the patient is **likely to survive** with a probability of {1 - probability:.2f}.")
+# Display user input into a table
+#st.table(user_input)
 
-if __name__ == '__main__':
-    main()
+if st.button("Predict"):
+    result = predict(user_input)
+    if result[0] == 0:
+        st.success("Accepted")
+    else:
+        st.error("Rejected")
