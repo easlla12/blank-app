@@ -6,7 +6,7 @@ import numpy as np
 # Sidebar panel
 st.sidebar.title("Breast Cancer Predictions")
 st.sidebar.write('''This application has been designed to predict weather a patient will live or die, if so then doctors/clicicals would make personalised treatment plan.
-This tool is for information purposes only and should not be taken as financial advice.
+The actual diagnosis and treatment plan should always be determined by qualified healthcare professionals based on a comprehensive evaluation of your individual medical history and circumstances.
 ''')
 def main():
     st.title("Breast Cancer Survival Prediction")
