@@ -4,9 +4,6 @@ from pycaret.classification import load_model, predict_model, get_config
 import shap
 import matplotlib.pyplot as plt
 
-# Load your trained PyCaret model
-model = load_model('seer_model')  # Use your actual model name here
-
 # Streamlit App Layout
 st.set_page_config(page_title="SEER Breast Cancer Predictor", layout="centered")
 st.title("🩺 SEER Breast Cancer Outcome Predictor")
