@@ -8,9 +8,8 @@ st.sidebar.title("Breast Cancer Predictions")
 st.sidebar.write('''This application has been designed to predict weather a patient will live or die, if so then doctors/clicicals would make personalised treatment plan.
 The actual diagnosis and treatment plan should always be determined by qualified healthcare professionals based on a comprehensive evaluation of your individual medical history and circumstances.
 ''')
-def main():
-    st.title("Breast Cancer Survival Prediction")
-    st.write("Please enter the patient's features to predict the survival outcome.")
+st.sidebar.title("How to use:")
+st.sidebar.write('''1. **Enter/select** the parameters that best describe your situation.''')
     
 # --- Define the order and names of your features EXACTLY as your model expects them ---
 survival_features = [
