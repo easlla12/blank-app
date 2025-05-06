@@ -1,3 +1,10 @@
+pip install pycaret
+streamlit
+pycaret==3.2.0
+shap
+matplotlib
+pandas
+scikit-learn
 import streamlit as st
 import pandas as pd
 from pycaret.classification import load_model, predict_model, get_config
